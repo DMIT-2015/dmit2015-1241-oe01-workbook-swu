@@ -37,8 +37,8 @@ Content-Type: application/json
 }
 
 ### Remove JSON data - use this if you want to delete data
-@deletePrimaryKeyValue = replace-with-actual-value
-DELETE https://dmit2015-1241-oe01-swu-default-rtdb.firebaseio.com/Student/{deletePrimaryKeyValue}.json
+@deletePrimaryKeyValue = -O76QIYoLDnRNtWuBBtj
+DELETE https://dmit2015-1241-oe01-swu-default-rtdb.firebaseio.com/Student/{{deletePrimaryKeyValue}}.json
 
 ### Update data - use this if you want to update some of the properties but not all of them
 PATCH https://dmit2015-1241-oe01-swu-default-rtdb.firebaseio.com/Student/{primaryKeyValue}.json
