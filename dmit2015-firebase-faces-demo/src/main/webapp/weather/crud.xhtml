@@ -145,7 +145,7 @@ template="/WEB-INF/faces-templates/layout.xhtml"
                     <p:commandButton value="Generate" icon="pi pi-calculator"
                                      actionListener="#{currentFirebaseWeatherForecastFirebaseRtdbCrudView.onGenerateData()}"
                                      update="manage-FirebaseWeatherForecast-content"
-                                     process="manage-FirebaseWeatherForecast-content @this"/>
+                                     process="@this"/>
                     <p:commandButton value="Save" icon="pi pi-check"
                                      actionListener="#{currentFirebaseWeatherForecastFirebaseRtdbCrudView.onSave}"
                                      update="manage-FirebaseWeatherForecast-content"
