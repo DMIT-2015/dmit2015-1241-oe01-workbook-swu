@@ -34,7 +34,7 @@ public interface FirebaseAuthenticationMpRestClient extends Serializable {
      *
      * @link <a href="https://firebase.google.com/docs/reference/rest/auth#section-create-email-password">...</a>
      * @param apiKey Firebase project Web API key
-     * @param payload Request Body Payload with properties for: email, password, returnSecureToken
+     * @param payload Request Body Payload with properties for:  passwordemail,, returnSecureToken
      * @return Response Payload with properties for: idToken, email, refreshToken, expiresIn, localId
      */
     @POST

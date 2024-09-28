@@ -11,6 +11,7 @@ import jakarta.json.bind.JsonbBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import net.datafaker.Faker;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 
@@ -61,7 +62,10 @@ public class FirebaseWeatherForecastFirebaseRtdbCrudView implements Serializable
     /**
      * The base URL to the Firebase Realtime Database
      */
-    private static final String FIREBASE_REALTIME_DATABASE_BASE_URL = "https://dmit2015-1241-oe01-swu-default-rtdb.firebaseio.com";
+//    private static final String FIREBASE_REALTIME_DATABASE_BASE_URL = "https://dmit2015-1241-oe01-swu-default-rtdb.firebaseio.com";
+    @Inject
+    @ConfigProperty(name = "firebase.realtime.database.baseuri")
+    private String _firebaseRtdbBaseUrl;
 
     /**
      * The URL to the Firebase Realtime Database to access all data.
@@ -79,7 +83,7 @@ public class FirebaseWeatherForecastFirebaseRtdbCrudView implements Serializable
 
 //        _jsonAllDataPath = String.format("%s/%s.json", FIREBASE_REALTIME_DATABASE_BASE_URL, FirebaseWeatherForecast.class.getSimpleName());
         _jsonAllDataPath = String.format("%s/%sOwner/%s.json?auth=%s",
-                FIREBASE_REALTIME_DATABASE_BASE_URL,
+                _firebaseRtdbBaseUrl,
                 FirebaseWeatherForecast.class.getSimpleName(),
                 firebaseUserId,
                 firebaseToken);
@@ -167,7 +171,7 @@ public class FirebaseWeatherForecastFirebaseRtdbCrudView implements Serializable
 //                String _jsonSingleDataPath = String.format("%s/%s/%s.json",
 //                        FIREBASE_REALTIME_DATABASE_BASE_URL, FirebaseWeatherForecast.class.getSimpleName(), selectedFirebaseWeatherForecast.getName());
                 String _jsonSingleDataPath = String.format("%s/%sOwner/%s/%s.json?auth=%s",
-                        FIREBASE_REALTIME_DATABASE_BASE_URL,
+                        _firebaseRtdbBaseUrl,
                         FirebaseWeatherForecast.class.getSimpleName(),
                         firebaseUserId,
                         selectedFirebaseWeatherForecast.getName(),
@@ -232,7 +236,7 @@ public class FirebaseWeatherForecastFirebaseRtdbCrudView implements Serializable
 //            String _jsonSingleDataPath = String.format("%s/%s/%s.json",
 //                    FIREBASE_REALTIME_DATABASE_BASE_URL, FirebaseWeatherForecast.class.getSimpleName(), name);
             String _jsonSingleDataPath = String.format("%s/%sOwner/%s/%s.json?auth=%s",
-                    FIREBASE_REALTIME_DATABASE_BASE_URL,
+                    _firebaseRtdbBaseUrl,
                     FirebaseWeatherForecast.class.getSimpleName(),
                     firebaseUserId,
                     selectedFirebaseWeatherForecast.getName(),
