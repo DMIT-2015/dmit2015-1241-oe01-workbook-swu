@@ -34,7 +34,7 @@ public class WeatherForecast implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "ColumnName", nullable = false)
+    @Column(name = "weatherforecast_id", nullable = false)
     private Long id;
 
     private String city;
