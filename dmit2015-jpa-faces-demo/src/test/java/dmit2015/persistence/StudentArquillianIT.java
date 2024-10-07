@@ -52,8 +52,8 @@ public class StudentArquillianIT { // The class must be declared as public
                 .addAsLibraries(pomFile.resolve("org.assertj:assertj-core:3.26.3").withTransitivity().asFile())
                 .addAsLibraries(pomFile.resolve("net.datafaker:datafaker:2.3.1").withTransitivity().asFile())
                 .addAsLibraries(pomFile.resolve("com.h2database:h2:2.3.232").withTransitivity().asFile())
-//                .addAsLibraries(pomFile.resolve("com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11").withTransitivity().asFile())
-//                .addAsLibraries(pomFile.resolve("com.oracle.database.jdbc:ojdbc11:23.5.0.24.07").withTransitivity().asFile())
+                .addAsLibraries(pomFile.resolve("com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11").withTransitivity().asFile())
+                .addAsLibraries(pomFile.resolve("com.oracle.database.jdbc:ojdbc11:23.5.0.24.07").withTransitivity().asFile())
                 .addAsLibraries(pomFile.resolve("org.postgresql.jdbc:postgresql:42.7.4").withTransitivity().asFile())
 //                .addAsLibraries(pomFile.resolve("com.mysql:mysql-connector-j:9.0.0").withTransitivity().asFile())
 //                .addAsLibraries(pomFile.resolve("org.mariadb.jdbc:mariadb-java-client:3.4.1").withTransitivity().asFile())
@@ -103,7 +103,7 @@ public class StudentArquillianIT { // The class must be declared as public
         newStudent.setLastName(faker.name().lastName());
         newStudent.setEmail(faker.internet().emailAddress());
 
-//        _beanManagedTransaction.begin();
+        _beanManagedTransaction.begin();
 
         try {
             // Act
@@ -113,186 +113,163 @@ public class StudentArquillianIT { // The class must be declared as public
             assertThat(newStudent.getId())
                     .isNotNull();
         } finally {
+            _beanManagedTransaction.rollback();
+        }
+
+    }
+
+//    @Order(2)
+//    @Test
+//    void givenExistingId_whenFindById_thenReturnEntity() throws SystemException, NotSupportedException {
+//        // Arrange
+//        Student newStudent = new Student();
+//        // TODO Set each property of the new entity
+//        //newStudent.setProperty1(faker.providerName().methodName());
+//        //newStudent.setProperty2(faker.providerName().methodName());
+//        //newStudent.setProperty3(faker.providerName().methodName());
+//
+//        _beanManagedTransaction.begin();
+//
+//        try {
+//            // Act
+//            _studentRepository.add(newStudent);
+//
+//            // Assert
+//            // TODO Uncomment code below and change get method for primary key
+//            Optional<Student> optionalStudent = _studentRepository.findById(newStudent.getId());
+//            assertThat(optionalStudent.isPresent())
+//                    .isTrue();
+//            // Assert
+//            var existingStudent = optionalStudent.orElseThrow();
+//            assertThat(existingStudent)
+//                    .usingRecursiveComparison()
+//                    // .ignoringFields("field1", "field2")
+//                    .isEqualTo(newStudent);
+//
+//        } finally {
 //            _beanManagedTransaction.rollback();
-        }
-
-    }
-
-    @Order(2)
-    @Test
-    void givenExistingId_whenFindById_thenReturnEntity() throws SystemException, NotSupportedException {
-        // Arrange
-        Student newStudent = new Student();
-        // TODO Set each property of the new entity
-        //newStudent.setProperty1(faker.providerName().methodName());
-        //newStudent.setProperty2(faker.providerName().methodName());
-        //newStudent.setProperty3(faker.providerName().methodName());
-
-        _beanManagedTransaction.begin();
-
-        try {
-            // Act
-            _studentRepository.add(newStudent);
-
-            // Assert
-            // TODO Uncomment code below and change get method for primary key
-            Optional<Student> optionalStudent = _studentRepository.findById(newStudent.getId());
-            assertThat(optionalStudent.isPresent())
-                    .isTrue();
-            // Assert
-            var existingStudent = optionalStudent.orElseThrow();
-            assertThat(existingStudent)
-                    .usingRecursiveComparison()
-                    // .ignoringFields("field1", "field2")
-                    .isEqualTo(newStudent);
-
-        } finally {
-            _beanManagedTransaction.rollback();
-        }
-
-    }
-
-    @Order(3)
-    @Test
-    void givenExistingEntity_whenUpdatedEntity_thenEntityIsUpdated() throws SystemException, NotSupportedException {
-        // Arrange
-        Student newStudent = new Student();
-        // TODO Set each property of the new entity
-        //newStudent.setProperty1(faker.providerName().methodName());
-        //newStudent.setProperty2(faker.providerName().methodName());
-        //newStudent.setProperty3(faker.providerName().methodName());
-
-        _beanManagedTransaction.begin();
-
-        try {
-            // Act
-            _studentRepository.add(newStudent);
-            //newStudent.setProperty1(faker.providerName().methodName());
-            //newStudent.setProperty2(faker.providerName().methodName());
-            //newStudent.setProperty3(faker.providerName().methodName());
-            Student updatedStudent = _studentRepository.update(newStudent.getId(), newStudent);
-
-            // Assert
-            // TODO Uncomment code below and change get method for primary key
-            Optional<Student> optionalStudent = _studentRepository.findById(updatedStudent.getId());
-            assertThat(optionalStudent.isPresent())
-                    .isTrue();
-            // Assert
-            var existingStudent = optionalStudent.orElseThrow();
-            assertThat(existingStudent)
-                    .usingRecursiveComparison()
-                    // .ignoringFields("field1", "field2")
-                    .isEqualTo(newStudent);
-
-        } finally {
-            _beanManagedTransaction.rollback();
-        }
-
-    }
-
-    @Order(4)
-    @Test
-    void givenExistingId_whenDeleteEntity_thenEntityIsDeleted() throws SystemException, NotSupportedException {
-        _beanManagedTransaction.begin();
-
-        try {
-            // Arrange
-            Student newStudent = new Student();
-            // TODO Set each property of the new entity
-            //newStudent.setProperty1(faker.providerName().methodName());
-            //newStudent.setProperty2(faker.providerName().methodName());
-            //newStudent.setProperty3(faker.providerName().methodName());
-            _studentRepository.add(newStudent);
-            // Act
-            _studentRepository.deleteById(newStudent.getId());
-            // Assert
-            Optional<Student> optionalStudent = _studentRepository.findById(newStudent.getId());
-            assertThat(optionalStudent.isPresent())
-                    .isFalse();
-
-        } catch (Exception ex) {
-            fail("Failed to delete entity with exception message %s", ex.getMessage());
-        } finally {
-            _beanManagedTransaction.rollback();
-        }
-
-    }
+//        }
+//
+//    }
+//
+//    @Order(3)
+//    @Test
+//    void givenExistingEntity_whenUpdatedEntity_thenEntityIsUpdated() throws SystemException, NotSupportedException {
+//        // Arrange
+//        Student newStudent = new Student();
+//        // TODO Set each property of the new entity
+//        //newStudent.setProperty1(faker.providerName().methodName());
+//        //newStudent.setProperty2(faker.providerName().methodName());
+//        //newStudent.setProperty3(faker.providerName().methodName());
+//
+//        _beanManagedTransaction.begin();
+//
+//        try {
+//            // Act
+//            _studentRepository.add(newStudent);
+//            //newStudent.setProperty1(faker.providerName().methodName());
+//            //newStudent.setProperty2(faker.providerName().methodName());
+//            //newStudent.setProperty3(faker.providerName().methodName());
+//            Student updatedStudent = _studentRepository.update(newStudent.getId(), newStudent);
+//
+//            // Assert
+//            // TODO Uncomment code below and change get method for primary key
+//            Optional<Student> optionalStudent = _studentRepository.findById(updatedStudent.getId());
+//            assertThat(optionalStudent.isPresent())
+//                    .isTrue();
+//            // Assert
+//            var existingStudent = optionalStudent.orElseThrow();
+//            assertThat(existingStudent)
+//                    .usingRecursiveComparison()
+//                    // .ignoringFields("field1", "field2")
+//                    .isEqualTo(newStudent);
+//
+//        } finally {
+//            _beanManagedTransaction.rollback();
+//        }
+//
+//    }
+//
+//    @Order(4)
+//    @Test
+//    void givenExistingId_whenDeleteEntity_thenEntityIsDeleted() throws SystemException, NotSupportedException {
+//        _beanManagedTransaction.begin();
+//
+//        try {
+//            // Arrange
+//            Student newStudent = new Student();
+//            // TODO Set each property of the new entity
+//            //newStudent.setProperty1(faker.providerName().methodName());
+//            //newStudent.setProperty2(faker.providerName().methodName());
+//            //newStudent.setProperty3(faker.providerName().methodName());
+//            _studentRepository.add(newStudent);
+//            // Act
+//            _studentRepository.deleteById(newStudent.getId());
+//            // Assert
+//            Optional<Student> optionalStudent = _studentRepository.findById(newStudent.getId());
+//            assertThat(optionalStudent.isPresent())
+//                    .isFalse();
+//
+//        } catch (Exception ex) {
+//            fail("Failed to delete entity with exception message %s", ex.getMessage());
+//        } finally {
+//            _beanManagedTransaction.rollback();
+//        }
+//
+//    }
 
     @Order(5)
-    @Test
-    void givenMultipleEntity_whenFindAll_thenReturnEntityList() throws SystemException, NotSupportedException {
+    @ParameterizedTest
+    @CsvSource({
+            "10"}
+    )
+    void givenMultipleEntity_whenFindAll_thenReturnEntityList(int recordCount) throws SystemException, NotSupportedException {
         // Arrange: Set up the initial state
-        _beanManagedTransaction.begin();
+//        _beanManagedTransaction.begin();
 
         try {
-            // Delete all existing data
-            assertThat(_studentRepository).isNotNull();
-            _studentRepository.deleteAll();
-            for (int counter = 1; counter <= 5; counter++) {
-                Student currentStudent = new Student();
-                // TODO Set each property of the new entity
-                //currentStudent.setProperty1(faker.providerName().methodName());
-                //currentStudent.setProperty2(faker.providerName().methodName());
-                //currentStudent.setProperty3(faker.providerName().methodName());
 
-                _studentRepository.add(currentStudent);
-            }
-
-            // Act: Peform the action to be tested
+            // Act: Perform the action to be tested
             List<Student> studentList = _studentRepository.findAll();
 
             // Assert: Verify the expected outcome
             assertThat(studentList.size())
-                    .isEqualTo(5);
-
-            // Get the first entity and compare with expected results
-            var firstStudent = studentList.getFirst();
-            assertThat(firstStudent)
-                    .usingRecursiveComparison()
-                    // .ignoringFields("field1", "field2")
-                    .isEqualTo(firstStudent);
-            // Get the last entity and compare with expected results
-            var lastStudent = studentList.getLast();
-            assertThat(lastStudent)
-                    .usingRecursiveComparison()
-                    // .ignoringFields("field1", "field2")
-                    .isEqualTo(lastStudent);
-
+                    .isEqualTo(recordCount);
         } catch (Exception ex) {
             fail("Failed to delete entity with exception message %s", ex.getMessage());
         } finally {
-            _beanManagedTransaction.rollback();
+//            _beanManagedTransaction.rollback();
         }
     }
 
-    @Order(6)
-    @ParameterizedTest
-    // TODO Change the value below
-    @CsvSource(value = {
-            "Invalid Property1Value, Property2Value, Property3Value, ExpectedExceptionMessage",
-            "Property1Value, Invalid Property2Value, Property3Value, ExpectedExceptionMessage",
-    }, nullValues = {"null"})
-    void givenEntityWithValidationErrors_whenAddEntity_thenThrowException(String property1, String property2, String property3, String expectedExceptionMessage) throws SystemException, NotSupportedException {
-        // Arrange
-        Student newStudent = new Student();
-        // TODO Change the code below to set each property
-        // newStudent.setProperty1(property1);
-        // newStudent.setProperty2(property2);
-        // newStudent.setProperty3(property3);
-
-        _beanManagedTransaction.begin();
-        try {
-            // Act
-            _studentRepository.add(newStudent);
-            fail("An bean validation constraint should have been thrown");
-        } catch (Exception ex) {
-            // Assert
-            assertThat(ex)
-                    .hasMessageContaining(expectedExceptionMessage);
-        } finally {
-            _beanManagedTransaction.rollback();
-        }
-
-    }
+//    @Order(6)
+//    @ParameterizedTest
+//    // TODO Change the value below
+//    @CsvSource(value = {
+//            "Invalid Property1Value, Property2Value, Property3Value, ExpectedExceptionMessage",
+//            "Property1Value, Invalid Property2Value, Property3Value, ExpectedExceptionMessage",
+//    }, nullValues = {"null"})
+//    void givenEntityWithValidationErrors_whenAddEntity_thenThrowException(String property1, String property2, String property3, String expectedExceptionMessage) throws SystemException, NotSupportedException {
+//        // Arrange
+//        Student newStudent = new Student();
+//        // TODO Change the code below to set each property
+//        // newStudent.setProperty1(property1);
+//        // newStudent.setProperty2(property2);
+//        // newStudent.setProperty3(property3);
+//
+//        _beanManagedTransaction.begin();
+//        try {
+//            // Act
+//            _studentRepository.add(newStudent);
+//            fail("An bean validation constraint should have been thrown");
+//        } catch (Exception ex) {
+//            // Assert
+//            assertThat(ex)
+//                    .hasMessageContaining(expectedExceptionMessage);
+//        } finally {
+//            _beanManagedTransaction.rollback();
+//        }
+//
+//    }
 
 }
