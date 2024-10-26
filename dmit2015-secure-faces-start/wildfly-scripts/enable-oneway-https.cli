@@ -1,0 +1,5 @@
+# CLI script to enable one-way SSL/TLS for Applications
+# This scripts assumes that you have already generated a keystore file using the command shown below
+#   keytool -genkeypair -alias localhost -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore ~/jdk/ssl/server.keystore -dname "CN=localhost, OU=DMIT, O=NAIT, L=Edmonton, ST=Alberta, C=CA" -keypass ServerPassword2015 -storepass ServerPassword2015
+
+security enable-ssl-http-server --key-store-path=/home/user2015/jdk/ssl/server.keystore --key-store-password=ServerPassword2015 --override-ssl-context
