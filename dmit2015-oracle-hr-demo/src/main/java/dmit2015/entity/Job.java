@@ -1,5 +1,6 @@
 package dmit2015.entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,9 +31,11 @@ public class Job {
     @Column(name = "MAX_SALARY")
     private Integer maxSalary;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "job")
     private Set<Employee> employees = new LinkedHashSet<>();
 
+    @JsonbTransient
     @OneToMany(mappedBy = "job")
     private Set<dmit2015.entity.JobHistory> jobHistories = new LinkedHashSet<>();
 

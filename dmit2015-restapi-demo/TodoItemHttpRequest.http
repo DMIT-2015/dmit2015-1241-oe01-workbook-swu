@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
   "id": 4,
-  "task": "Commit DMIT2015 Assignment 6",
+  "task": "Done DMIT2015 Assignment 6",
   "done": true,
   "version": 0
 }
