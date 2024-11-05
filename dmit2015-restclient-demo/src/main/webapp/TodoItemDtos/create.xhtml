@@ -1,0 +1,63 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:faces="jakarta.faces"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        xmlns:pt="jakarta.faces.passthrough"
+        xmlns:cc="jakarta.faces.composite"
+        xmlns:c="jakarta.tags.core"
+        xmlns:fn="jakarta.tags.functions"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="TodoItemDto | Create"/>
+
+    <ui:define name="maincontent">
+        <h1>TodoItemDto | Create</h1>
+
+        <!--Display all messages in FacesContext -->
+        <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:growl id="growl"/>
+
+        <h:form prependId="false">
+            <p:focus context="formPanel"/>
+
+            <p:panel id="formPanel" header="Form Panel">
+                <div class="ui-fluid">
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Name</p:outputLabel>
+                        <p:inputText id="name" value="#{currentTodoItemDtoCreateView.newTodoItemDto.name}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Complete</p:outputLabel>
+                        <p:selectBooleanCheckbox id="complete" value="#{currentTodoItemDtoCreateView.newTodoItemDto.complete}"/>
+                    </div>
+
+                    <div class="formgroup-inline">
+                        <div class="field">
+                            <p:commandButton value="Submit"
+                                             action="#{currentTodoItemDtoCreateView.onCreateNew()}"
+                                             update=":messages :growl @form"
+                            >
+                            </p:commandButton>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
