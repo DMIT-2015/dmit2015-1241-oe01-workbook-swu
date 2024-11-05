@@ -28,6 +28,25 @@
 
         <h1>TodoItemDto REST Client</h1>
 
+        <h2>OpenWeatherMap API</h2>
+
+        <p:messages id="messages" />
+
+        <h:form prependId="false">
+            <div class="formgroup-inline">
+                <div class="field">
+
+                    <label for="city">City </label>
+                    <p:inputText id="city"
+                                 value="#{currentOpenWeatherApiClientView.city}"/>
+                    <p:commandButton id="submit"
+                                     value="Get Weather"
+                                     actionListener="#{currentOpenWeatherApiClientView.doSearchByCity()}"
+                                     ajax="false" />
+                </div>
+            </div>
+        </h:form>
+
     </ui:define>
 
 </ui:composition>
