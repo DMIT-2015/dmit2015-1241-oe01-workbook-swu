@@ -243,31 +243,6 @@
                 <version>3.5.1</version>
             </plugin>
 
-            <!-- Plugin to provision a server using Galleon, package your application in Galleon provisioned server,
-            deploy, redeploy, undeploy or run your application.  -->
-            <!--https://docs.wildfly.org/wildfly-glow/ -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>5.0.1.Final</version>
-                <configuration>
-                    <discover-provisioning-info>
-                        <version>34.0.0.Final</version>
-                        <suggest>true</suggest>
-                        <verbose>true</verbose>
-                    </discover-provisioning-info>
-                    <!-- deploys the app on root web context -->
-                    <name>ROOT.war</name>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Plugin to build a bootable JAR for WildFly -->
             <plugin>
                 <!-- https://docs.wildfly.org/bootablejar/#wildfly_jar_dev_mode -->
